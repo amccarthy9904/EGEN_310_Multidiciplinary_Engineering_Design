@@ -36,14 +36,16 @@ class Controller:
 
     def update(self):
         if self.pauseVar.get():
-            self.pause.grid(row=3, column=0, sticky=N)
+            #self.pause.grid(row=3, column=0, sticky=N)
             # TODO:
             # pause pi
+            boi =1
         else:
-            self.pause.grid_remove()
+            #self.pause.grid_remove()
             # TODO:
             # unpause pi
             # update pi
+            boi =1
 
 
 top = Tk()
