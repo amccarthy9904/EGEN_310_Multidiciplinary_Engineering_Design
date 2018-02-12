@@ -36,14 +36,24 @@ class Controller:
 
     def update(self):
         if self.pauseVar.get():
+<<<<<<< HEAD
             self.pause.grid(row=3, column=0, sticky=Tkinter.N)
+=======
+            #self.pause.grid(row=3, column=0, sticky=N)
+>>>>>>> 762448e38cfdbc3a1ceb3463aeb35e1c7458b1c1
             # TODO:
             # pause pi
+            boi =1
         else:
+<<<<<<< HEAD
             self.pause()
+=======
+            #self.pause.grid_remove()
+>>>>>>> 762448e38cfdbc3a1ceb3463aeb35e1c7458b1c1
             # TODO:
             # unpause pi
             # update pi
+            boi =1
 
 
 top = Tkinter.Tk()
