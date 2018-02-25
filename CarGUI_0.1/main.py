@@ -1,6 +1,5 @@
 from tkinter import *
 import socket
-import sys
 from _thread import *
 
 class Controller:
@@ -23,15 +22,12 @@ class Controller:
         slid_right = Scale(top, from_=100, to=-100, label="RIGHT", length=300, tickinterval=20, resolution=2, command=self.update())
         slid_left.grid(row=1, column=2)
         slid_right.grid(row=1, column=3)
-        #self.pause = Message(f2, text="PAUSE")
-        #self.connect = Message(f2, text="CONNECT")
 
     def pause(self):
         if self.pauseVar.get():
-            self.update()
-            #self.pause.grid(row=3, column=0, sticky=N)
             # TODO:
             # pause pi
+            self.update()
         else:
             #self.pause.grid_remove()
             # TODO:
