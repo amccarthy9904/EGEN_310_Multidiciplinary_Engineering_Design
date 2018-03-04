@@ -29,7 +29,7 @@ class Controller:
         self.pwm2.start(0)
         self.pwm3.start(0)
         self.pwm4.start(0)
-        
+
         self.pauseVar = IntVar()
         frame = Frame(master)
         frame.grid()
@@ -37,6 +37,7 @@ class Controller:
         f2.grid(row=3, column=3)
         but_pause = Checkbutton(frame, text='Pause', variable=self.pauseVar, command=self.update())
         but_pause.grid(row=0, column=2)
+	
         self.slid_left = Scale(top, from_=100, to=-100, label="LEFT", length=300, tickinterval=20, resolution=2, command=self.update())
         self.slid_right = Scale(top, from_=100, to=-100, label="RIGHT", length=300, tickinterval=20, resolution=2, command=self.update())
         self.slid_left.grid(row=1, column=2)
