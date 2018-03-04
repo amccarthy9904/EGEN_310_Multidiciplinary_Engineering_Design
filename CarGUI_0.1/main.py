@@ -10,23 +10,25 @@ class Controller:
         pin2 = 11
         pin3 = 12
         pin4 = 13
-
+	pin_ground = 14
+	pin_sleep = 15
         pwmFreq = 100
-
-        GPIO.setup(pin1, GPIO.out)
-        GPIO.setup(pin2, GPIO.out)
-        GPIO.setup(pin3, GPIO.out)
-        GPIO.setup(pin4, GPIO.out)
-
-        pwm1 = GPIO.PWM(pin, pwmFreq)
-        pwm2 = GPIO.PWM(pin, pwmFreq)
-        pwm3 = GPIO.PWM(pin, pwmFreq)
-        pwm4 = GPIO.PWM(pin, pwmFreq)
+	
+        GPIO.setup(pin1, GPIO.OUT)
+        GPIO.setup(pin2, GPIO.OUT)
+        GPIO.setup(pin3, GPIO.OUT)
+        GPIO.setup(pin4, GPIO.OUT)
+	GPIO.setup(pin_ground, LOW)
+	
+        pwm1 = GPIO.PWM(pin1, pwmFreq)
+        pwm2 = GPIO.PWM(pin2, pwmFreq)
+        pwm3 = GPIO.PWM(pin3, pwmFreq)
+        pwm4 = GPIO.PWM(pin4, pwmFreq)
         
-        pwm1.start(0)
-        pwm2.start(0)
-        pwm3.start(0)
-        pwm4.start(0)
+        self.pwm1.start(0)
+        self.pwm2.start(0)
+        self.pwm3.start(0)
+        self.pwm4.start(0)
         
         self.pauseVar = IntVar()
         frame = Frame(master)
@@ -35,10 +37,10 @@ class Controller:
         f2.grid(row=3, column=3)
         but_pause = Checkbutton(frame, text='Pause', variable=self.pauseVar, command=self.update())
         but_pause.grid(row=0, column=2)
-        slid_left = Scale(top, from_=100, to=-100, label="LEFT", length=300, tickinterval=20, resolution=2, command=self.update())
-        slid_right = Scale(top, from_=100, to=-100, label="RIGHT", length=300, tickinterval=20, resolution=2, command=self.update())
-        slid_left.grid(row=1, column=2)
-        slid_right.grid(row=1, column=3)
+        self.slid_left = Scale(top, from_=100, to=-100, label="LEFT", length=300, tickinterval=20, resolution=2, command=self.update())
+        self.slid_right = Scale(top, from_=100, to=-100, label="RIGHT", length=300, tickinterval=20, resolution=2, command=self.update())
+        self.slid_left.grid(row=1, column=2)
+        self.slid_right.grid(row=1, column=3)
 
     def update(self):
         if self.pauseVar.get():
@@ -46,13 +48,23 @@ class Controller:
             # pause pi
             boi =1
         else:
-            #self.pause.grid_remove()
-            # TODO:
+
             # unpause pi
             # update pi
-            boi =1
+	if self.slid_left.get() >= 0:
+	    self.pwm1.ChangeDutyCycle(self.slid_left.get())
+	    self.pwm2.ChangeDutyCycle(0)
+	    self.pwm1.start()
+	    self.pwm2.start()
+	else:
+	    self.pwm2.ChangeDutyCycle(abs(self.slid_left.get()))
+	    self.pwm1.ChangeDutyCycle(0)
+	    self.pwm1.start()
+	    self.pwm2.start()
 
 
+
+GPIO.setup(pin_sleep, HIGH)
 top = Tk()
 top.geometry('{}x{}'.format(750, 500))
 app = Controller(top)
